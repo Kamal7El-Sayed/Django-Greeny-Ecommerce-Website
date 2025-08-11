@@ -5,7 +5,6 @@ from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator
 from taggit.managers import TaggableManager
 
-
 FLAG_OPTIONS = (
     ('New', 'New'),
     ('Feature', 'Feature'),
@@ -19,6 +18,7 @@ class Product(models.Model):
     skl = models.IntegerField(_("SKU"))
     desc = models.TextField(_("Description"))
     price = models.FloatField(_("Price"))
+    image = models.ImageField(upload_to='products/')
     flag = models.CharField(_("Flag") ,max_length=10 , choices=FLAG_OPTIONS)
     quantity = models.IntegerField(_("Quantity"))
     brand = models.ForeignKey('Brand',related_name='product_brand' , on_delete=models.SET_NULL, null=True, blank=True )
@@ -33,7 +33,7 @@ class Product(models.Model):
 
 
 class ProductImage(models.Model):
-    prouduct =models.ForeignKey(Product,related_name='product_images', on_delete=models.CASCADE)
+    product =models.ForeignKey(Product,related_name='product_image', on_delete=models.CASCADE)
     image = models.ImageField(_("Image"), upload_to='product_images/')
     def __str__(self):
         return str(self.product)
@@ -64,4 +64,5 @@ class ProductReview(models.Model):
 
     def __str__(self):
         return str(self.user)
+
 
