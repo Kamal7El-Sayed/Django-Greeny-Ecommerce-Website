@@ -42,6 +42,7 @@ class ProductImage(models.Model):
 class Brand(models.Model):
     name = models.CharField(_("Name"), max_length=50)
     image = models.ImageField(_("Image"), upload_to='brands/')
+    category = models.ForeignKey('Category',related_name='brand_category' , on_delete=models.SET_NULL, null=True, blank=True )
     def __str__(self):
         return self.name
 
@@ -49,7 +50,7 @@ class Brand(models.Model):
 
 class Category(models.Model):
     name = models.CharField(_("Name"), max_length=50)
-    image = models.ImageField(_("Image"), upload_to='brands/')
+    image = models.ImageField(_("Image"), upload_to='category/')
     def __str__(self):
         return self.name
 
