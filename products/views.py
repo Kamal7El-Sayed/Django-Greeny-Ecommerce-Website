@@ -5,6 +5,7 @@ from .models import Product , Brand , Category
 
 class ProductList(ListView):
     model =Product
+    paginate_by=50
 
 
 
