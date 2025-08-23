@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     "taggit",
     "debug_toolbar",
+    'rest_framework',
 
 
     'accounts',
@@ -151,3 +152,4 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
+
