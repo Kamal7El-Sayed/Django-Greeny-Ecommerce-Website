@@ -7,19 +7,31 @@ import taggit.managers
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('taggit', '0006_rename_taggeditem_content_type_object_id_taggit_tagg_content_8fc721_idx'),
-        ('products', '0001_initial'),
+        (
+            "taggit",
+            "0006_rename_taggeditem_content_type_object_id_taggit_tagg_content_8fc721_idx",
+        ),
+        ("products", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='product',
-            name='tags',
-            field=taggit.managers.TaggableManager(help_text='A comma-separated list of tags.', through='taggit.TaggedItem', to='taggit.Tag', verbose_name='Tags'),
+            model_name="product",
+            name="tags",
+            field=taggit.managers.TaggableManager(
+                help_text="A comma-separated list of tags.",
+                through="taggit.TaggedItem",
+                to="taggit.Tag",
+                verbose_name="Tags",
+            ),
         ),
         migrations.AlterField(
-            model_name='product',
-            name='flag',
-            field=models.CharField(choices=[('New', 'New'), ('Feature', 'Feature'), ('Sale', 'Sale')], max_length=10, verbose_name='Flag'),
+            model_name="product",
+            name="flag",
+            field=models.CharField(
+                choices=[("New", "New"), ("Feature", "Feature"), ("Sale", "Sale")],
+                max_length=10,
+                verbose_name="Flag",
+            ),
         ),
     ]

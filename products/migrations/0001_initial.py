@@ -17,53 +17,164 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Brand',
+            name="Brand",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50, verbose_name='Name')),
-                ('image', models.ImageField(upload_to='brands/', verbose_name='Image')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=50, verbose_name="Name")),
+                ("image", models.ImageField(upload_to="brands/", verbose_name="Image")),
             ],
         ),
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50, verbose_name='Name')),
-                ('image', models.ImageField(upload_to='brands/', verbose_name='Image')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=50, verbose_name="Name")),
+                ("image", models.ImageField(upload_to="brands/", verbose_name="Image")),
             ],
         ),
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255, verbose_name='Product Name')),
-                ('subtitle', models.CharField(max_length=500, verbose_name='Subtitle')),
-                ('skl', models.IntegerField(verbose_name='SKU')),
-                ('desc', models.TextField(verbose_name='Description')),
-                ('price', models.FloatField(verbose_name='Price')),
-                ('flag', models.BooleanField(choices=[('New', 'New'), ('Feature', 'Feature'), ('Sale', 'Sale')], max_length=10, verbose_name='Flag')),
-                ('quantity', models.IntegerField(verbose_name='Quantity')),
-                ('brand', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='product_brand', to='products.brand')),
-                ('category', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='product_category', to='products.category')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255, verbose_name="Product Name")),
+                ("subtitle", models.CharField(max_length=500, verbose_name="Subtitle")),
+                ("skl", models.IntegerField(verbose_name="SKU")),
+                ("desc", models.TextField(verbose_name="Description")),
+                ("price", models.FloatField(verbose_name="Price")),
+                (
+                    "flag",
+                    models.BooleanField(
+                        choices=[
+                            ("New", "New"),
+                            ("Feature", "Feature"),
+                            ("Sale", "Sale"),
+                        ],
+                        max_length=10,
+                        verbose_name="Flag",
+                    ),
+                ),
+                ("quantity", models.IntegerField(verbose_name="Quantity")),
+                (
+                    "brand",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="product_brand",
+                        to="products.brand",
+                    ),
+                ),
+                (
+                    "category",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="product_category",
+                        to="products.category",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='ProductReview',
+            name="ProductReview",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('rate', models.IntegerField(validators=[django.core.validators.MaxValueValidator(5), django.core.validators.MinValueValidator(0)], verbose_name='Rate')),
-                ('review', models.TextField(max_length=500, verbose_name='Review')),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now, verbose_name='Created at')),
-                ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='product_review', to='products.product', verbose_name='Product')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user_review', to=settings.AUTH_USER_MODEL, verbose_name='User')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "rate",
+                    models.IntegerField(
+                        validators=[
+                            django.core.validators.MaxValueValidator(5),
+                            django.core.validators.MinValueValidator(0),
+                        ],
+                        verbose_name="Rate",
+                    ),
+                ),
+                ("review", models.TextField(max_length=500, verbose_name="Review")),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        default=django.utils.timezone.now, verbose_name="Created at"
+                    ),
+                ),
+                (
+                    "product",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="product_review",
+                        to="products.product",
+                        verbose_name="Product",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="user_review",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="User",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='ProductImage',
+            name="ProductImage",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('image', models.ImageField(upload_to='product_images/', verbose_name='Image')),
-                ('prouduct', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='product_images', to='products.product')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "image",
+                    models.ImageField(
+                        upload_to="product_images/", verbose_name="Image"
+                    ),
+                ),
+                (
+                    "prouduct",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="product_images",
+                        to="products.product",
+                    ),
+                ),
             ],
         ),
     ]
