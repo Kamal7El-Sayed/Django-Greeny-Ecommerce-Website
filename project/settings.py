@@ -41,9 +41,11 @@ INSTALLED_APPS = [
     
     "taggit",
     "debug_toolbar",
-    "rest_framework",
     'django_filters',
+    'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+    
     
     
     
@@ -151,18 +153,15 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
-
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 5,
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-        #'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ]
+        #'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
 }
-
-REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
-}
-
 

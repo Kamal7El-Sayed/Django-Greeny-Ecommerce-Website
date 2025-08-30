@@ -24,7 +24,7 @@ class BrandSerializer(serializers.ModelSerializer):
 
 
 
-class ProductSerializers(serializers.ModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
     brand = BrandSerializer()
     category = CategorySerializer()
     
@@ -51,7 +51,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class CategoryDetailSerializer(serializers.ModelSerializer):
-    products = ProductSerializers(source='product_category',many=True)
+    products = ProductSerializer(source='product_category',many=True)
     
     class Meta:
         model = Category
@@ -59,7 +59,7 @@ class CategoryDetailSerializer(serializers.ModelSerializer):
 
 
 class BrandDetailSerializer(serializers.ModelSerializer):
-    products = ProductSerializers(source='product_brand',many=True)
+    products = ProductSerializer(source='product_brand',many=True)
     category = serializers.StringRelatedField()
     class Meta:
         model = Brand

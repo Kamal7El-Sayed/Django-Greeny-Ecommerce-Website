@@ -1,12 +1,18 @@
-from django.urls import path
+from django.urls import path , include
 from .views import ProductList, ProductDetail, BrandList, BrandDetail, CategoryList
 
-from .api import ProductListAPI, ProductDetailAPI ,CategoryListAPI ,CategoryDetailAPI ,BrandListAPI ,BrandDetailAPI
+from .api import ProductListAPI, ProductDetailAPI ,CategoryListAPI ,CategoryDetailAPI ,BrandListAPI ,BrandDetailAPI ,ProductViewSet
 
 app_name = "products"
 
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register('myproducts',ProductViewSet)
+
 urlpatterns = [
     # path('testing/' , product_list),
+    # Frontend CBVs
     path("", ProductList.as_view(), name="product_list"),
     path("<int:pk>", ProductDetail.as_view(), name="product_detail"),
     path("brands", BrandList.as_view(), name="brand_list"),
@@ -16,6 +22,7 @@ urlpatterns = [
     
     # path('api/list' , product_list_api),
     # path('api/list/<int:id>' , product_detail_api),
+    # APIs
     
     
     path("api/list/cbv", ProductListAPI.as_view()),
@@ -26,7 +33,9 @@ urlpatterns = [
    
     path("api/brand", BrandListAPI.as_view()), 
     path("api/brand/<int:pk>", BrandDetailAPI.as_view()),
-     
+    
+      
+    path('myapi/', include(router.urls))  
 ]
 
 
