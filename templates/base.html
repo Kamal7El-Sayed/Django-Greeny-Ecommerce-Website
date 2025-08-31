@@ -1,4 +1,6 @@
 {% load static %}
+{% load i18n %}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -68,10 +70,25 @@
                         <div class="header-top-select">
                             <div class="header-select">
                                 <i class="icofont-world"></i>
-                                <select class="select">
-                                    <option value="english" selected>english</option>
-                                    <option value="arabic">arabic</option>
-                                </select>
+                                {% load i18n %}
+                                <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                                    <input name="next" type="hidden" value="{{ redirect_to }}">
+                                    <select name="language" class="select">
+                                        {% get_current_language as LANGUAGE_CODE %}
+                                        {% get_available_languages as LANGUAGES %}
+                                        {% get_language_info_list for LANGUAGES as languages %}
+                                        {% for language in languages %}
+                                            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                                                {{ language.name_local }} ({{ language.code }})
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    <input type="submit" value="Go">
+                                </form>
+                                                                
+
+
+
                             </div>
                         </div>
                     </div>
@@ -148,10 +165,10 @@
                         <div class="navbar-content">
                             <ul class="navbar-list">
                                 <li class="navbar-item dropdown">
-                                    <a class="navbar-link " href="{% url 'products:product_list' %}">Products</a>
+                                    <a class="navbar-link " href="{% url 'products:product_list' %}">{% translate "Products" %}</a>
                                 </li>
                                 <li class="navbar-item dropdown-megamenu">
-                                    <a class="navbar-link dropdown-arrow" href="#">category</a>
+                                    <a class="navbar-link dropdown-arrow" href="#">{% translate "Category" %}</a>
                                     <div class="megamenu">
                                         <div class="container megamenu-scroll">
                                             <div class="row row-cols-5">
@@ -380,24 +397,24 @@
                                     </div>
                                 </li>
                                 <li class="navbar-item dropdown">
-                                    <a class="navbar-link" href="{% url 'products:brand_list' %}">Brands</a>
+                                    <a class="navbar-link" href="{% url 'products:brand_list' %}">{% translate "Brands" %}</a>
                                 </li>
                                 <li class="navbar-item dropdown">
-                                    <a class="navbar-link" href="#">Orders</a>
+                                    <a class="navbar-link" href="#">{% translate "Orders" %}</a>
                                 </li>
                             </ul>
                             <div class="navbar-info-group">
                                 <div class="navbar-info">
                                     <i class="icofont-ui-touch-phone"></i>
                                     <p>
-                                        <small>call us</small>
+                                        <small>{% translate "call us" %}</small>
                                         <span>{{ info.call_us }}</span>
                                     </p>
                                 </div>
                                 <div class="navbar-info">
                                     <i class="icofont-ui-email"></i>
                                     <p>
-                                        <small>email us</small>
+                                        <small>{% translate "email us" %}</small>
                                         <span>{{ info.email_us }}</span>
                                     </p>
                                 </div>
@@ -824,15 +841,15 @@
                 </li>
             </ul>
             <div class="cart-footer">
-                <button class="coupon-btn">Do you have a coupon code?</button>
+                <button class="coupon-btn">{% translate "Do you have a coupon code?" %}</button>
                 <form class="coupon-form">
                     <input type="text" placeholder="Enter your coupon code">
                     <button type="submit">
-                        <span>apply</span>
+                        <span>{% translate "apply" %}</span>
                     </button>
                 </form>
                 <a class="cart-checkout-btn" href="checkout.html">
-                    <span class="checkout-label">Proceed to Checkout</span>
+                    <span class="checkout-label">{% translate "Proceed to Checkout" %}</span>
                     <span class="checkout-price">$369.78</span>
                 </a>
             </div>
