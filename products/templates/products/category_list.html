@@ -57,12 +57,12 @@
                             <div class="category-media">
                                 <img src="{{ category.image.url }}" alt="category">
                                 <div class="category-overlay">
-                                    <a href="{% url 'products:category_list' %}"><i class="fas fa-link"></i></a>
+                                    <a href="{% url 'products:category_detail' category.id %}"><i class="fas fa-link"></i></a>
                                 </div>
                             </div>
                             <div class="category-meta">
                                 <h4>{{ category }}</h4>
-                                <p>(25 items)</p>
+                                <p>({{category.product_count}} items)</p>
                             </div>
                         </div>
                     </div>

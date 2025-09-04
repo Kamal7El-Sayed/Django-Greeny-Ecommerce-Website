@@ -54,17 +54,21 @@
             </div>
         </div>
         <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 isotope-items">
-            {% for brand in object_list %}
+            {% for brand in brand_list %}
             <div class="col all {{brand.category}}">
                 <div class="brand-wrap">
                     <div class="brand-media">
-                        <img src="{{brand.image.url}}" alt="brand">
+                        {% if brand.image %}
+                            <img src="{{brand.image.url}}" alt="{{brand.name}}">
+                        {% else %}
+                            <img src="{% static 'images/default-brand.png' %}" alt="default brand">
+                        {% endif %}    
                         <div class="brand-overlay">
                             <a href="{% url 'products:brand_detail' brand.id %}"><i class="fas fa-link"></i></a>
                         </div>
                     </div>
                     <div class="brand-meta">
-                        <h4>{{brand}}</h4>
+                        <h4>{{ brand.name }}</h4>
                         <p>({{brand.product_count}} items)</p>
                     </div>
                 </div>

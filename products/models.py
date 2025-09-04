@@ -7,6 +7,9 @@ from taggit.managers import TaggableManager
 from django.utils.text import slugify
 from django.db.models.aggregates import Avg
 
+
+
+
 FLAG_OPTION = (
     ('New','New'),
     ('Feature','Feature'),
@@ -32,9 +35,13 @@ class Product(models.Model):
     def __str__(self):
         return self.name
     
+
     def save(self, *args, **kwargs):
-       self.slug = slugify(self.name)    
-       super(Product, self).save(*args, **kwargs) # Call the real save() method
+        if not self.slug:   # ✅ slug يتولد أول مرة بس
+            self.slug = slugify(self.name) # Call the real save() method
+        super().save(*args, **kwargs)
+       
+       
        
        
     def avg_review(self):
